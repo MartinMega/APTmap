@@ -92,7 +92,8 @@ EstTab = BuildEstimationTable(SpecTab, binedges, allowedChargeStates, minAbundan
 binedges_tsne = (0:0.1:180);
 SpecTab_tsne = scaleDownSpecMat(SpecTab, binedges, binedges_tsne);
 
-%get a table with the tsne-coordinates
+% get a table with the tsne-coordinates
+% If you only have a low number of experiments, this may not converge well
 TsneTab = BuildTsneTable(SpecTab_tsne);
 
 % Now, we draw a tsne diagram. To make it more easy to interpret, we also
@@ -131,6 +132,7 @@ DrawTSNEDiagram(TsneTab, EstTab, ElementsAmountsMarkers);
 % optics has one parameter MinPts. 10 works well for the oxford-848 dataset.
 % You might need to tweak it if your collection of spectra is significantly
 % larger or smaller, or has strongly deviating cluster sructure.
+% this number must be lower than the number of datasets in you collection.
 optics_minpts = 10;
 
 %Run the OPTICS Algorithm. This draws a diagram.
