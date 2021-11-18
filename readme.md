@@ -24,7 +24,7 @@ In order to use these sripts, you need
    - Distributed Computing Toolbox (optional - this is the Parallel Toolbox)
  - Lots of epos files - 100 is good, 1000 is better. However,  it works from al little as 2. The m/n and voltage columns in all epos files most be populated (ie they must not contain all-zeros)
  - A fast computer, and ideally a fast hard drive if your collection of epos files is large
- - A copy of https://github.com/ennogra/GIXSGUI on your computer. See the "Get Started" section for more info. 
+ - A copy of https://github.com/ennogra/GIXSGUI on your computer, with a small patch. See the "Get Started" section for more info. 
 
 
 
@@ -32,8 +32,12 @@ In order to use these sripts, you need
 
 1. Download this repository into a folder on your computer
 2. Go to https://github.com/ennogra/GIXSGUI, download the repository and copy it into the Jcurvefit folder
-2. Open matlab, navigate to this folder
-3. Open the file "StepByStep.m" in matlab.
+3. Apply a small patch to GIXSgui:
+    1. Find the file Jcurvefit/linefit/linefit.m, open it in matlab or another editor
+    2. Go to line 43, and change "properties (SetAccess = private)" to "properties (SetAccess = public)"
+    3. Save the modified file, replacing the original.
+4. Open matlab, navigate to this folder
+5. Open the file "StepByStep.m" in matlab.
 
 The stepbystep file walks you through all of the data analyses. The file contains some adjustable parameters. Except from the path to the folder with your epos files, all of them can be left as is, however you may wish to tweaksome of them in order to achieve better analysis results. On large collections of epos files, this script will have a long runtime, possibly of several hours.
 
