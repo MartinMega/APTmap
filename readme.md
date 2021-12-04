@@ -32,8 +32,8 @@ In order to use these sripts, you need
 
 1. Download this repository into a folder on your computer
 2. Go to https://github.com/MartinMega/GIXSGUI, download the repository and copy it into the Jcurvefit sub-folder
-4. Open matlab, navigate to the foder in which you've downloaded this repository. (Not the Jcurvefit subfolder)
-5. Open the file "StepByStep.m" in matlab.
+3. Open matlab, navigate to the foder in which you've downloaded this repository. (Not the Jcurvefit subfolder)
+4. Open the file "StepByStep.m" in matlab.
 
 The stepbystep file walks you through all of the data analyses. The file contains some adjustable parameters. Except from the path to the folder with your epos files, all of them can be left as is, however you may wish to tweaksome of them in order to achieve better analysis results. On large collections of epos files, this script will have a long runtime, possibly of several hours.
 
