@@ -13,7 +13,7 @@ function [pos, varargout] = qreadpos(filepath)
 
 
 [~,~,extension] = fileparts(filepath);
-if strcmpi(extension,'.pos') %check if file is a pos file
+if strcmpi('.POS',extension) %check if file is a pos file
     
     fid = fopen(filepath, 'r');
     fullfile = fread(fid, inf,'16*uint8=>uint8');
@@ -31,7 +31,7 @@ if strcmpi(extension,'.pos') %check if file is a pos file
     pos = reshape(pos,4,[]);
     pos = pos';   
 
-elseif strcmpi(extension,'.epos') %check if file is an epos file
+elseif strcmpi('.EPOS',extension) %check if file is an epos file
     
     fid = fopen(filepath, 'r');
     fullfile = fread(fid, inf,'44*uint8=>uint8');
