@@ -36,6 +36,9 @@ FileTab = BuildFileTable(eposfiles_dirstruct);
 % Next, we read all the epos files and create a table with all m/n spectra.
 % Depending on the number of datsets and the data rate of your hard drive,
 % this might take a while.
+% If you have a table with correction factors ("CorrValsTab") to apply
+% some m/n spectrum calibration, you can load and use it here. This is not
+% needed if your epos files are already well calibrated.
 
 % Define the binning for our spectra
 binedges = (0:0.01:180);
@@ -47,8 +50,9 @@ binedges = (0:0.01:180);
 % Do use parallel on a SSD to achieve a speedup.
 doItParallel = false;
 
-SpecTab = BuildSpecTable(FileTab, binedges, doItParallel);
-
+%SpecTab = BuildSpecTable(FileTab, binedges, doItParallel);
+%Alternatively, apply calibration of you have a table with correction factors
+SpecTab = BuildSpecTable(FileTab, binedges, doItParallel, CorrValsTab);
 
 %% Search for Spectra
 % Now that we have spectra of all our datasets,  we can use
@@ -91,6 +95,11 @@ EstTab = BuildEstimationTable(SpecTab, binedges, allowedChargeStates, minAbundan
 % all the spectra such that they only use binsizes of 0.1.
 binedges_tsne = (0:0.1:180);
 SpecTab_tsne = scaleDownSpecMat(SpecTab, binedges, binedges_tsne);
+
+% optional: initialise matlab's random generator with a known seed such that
+% we can reproduce the tsne map
+randseed_tsne = 6511;
+rng(randseed_tsne, 'twister')
 
 % get a table with the tsne-coordinates
 % If you only have a low number of experiments, this may not converge well
@@ -150,12 +159,14 @@ OpticsClusterSearch(SpecTab, EstTab, ElementsAmountsMarkers, optics_minpts)
 % There are a couple of parameters to this:
 
 % the voltage bins to be used
-voltagebins = 1000:1000:15000;
+%voltagebins = 1000:1000:15000;
+voltagebins = 1000:500:15000;
 
 % If a voltage bin has less than MinCounts_voltagebin counts (before noise correction), we ignore it.
-% If there are less H or H2 than MinHinBin in a voltage bin (after nosie corr), we ignore it as well.
-MinCounts_voltagebin = 100000;
-MinHinBin = 20;
+% If there are less H or H2 than MinHinBin in a voltage bin (after noise corr), we can ignore it.
+% MinCounts_voltagebin = 100000;
+MinCounts_voltagebin = 50000;
+MinHinBin_Table = 1;
 
 % where in the mass-charge spectrum should we look for the Hydrogen peaks?
 Hrange = [0.9, 1.1];
@@ -166,11 +177,21 @@ doItParallel = false;
 
 % First, we need to go back to our epos files, and get some
 % Hydrogen-Voltage curves. These curves we save into the HydrogenTab table.
-[HydrogenTab] = BuildHydrogenTable(FileTab, voltagebins, Hrange, H2range, MinCounts_voltagebin, MinHinBin, doItParallel);
+% If you'd like to include a m/n spectrum calibration, use the alternative
+% form with the CorrValsTab (See above section about BuildSpecTab)
+%[HydrogenTab] = BuildHydrogenTable(FileTab, voltagebins, Hrange, H2range, MinCounts_voltagebin, MinHinBin, doItParallel);
+[HydrogenTab] = BuildHydrogenTable(FileTab, voltagebins, Hrange, H2range, MinCounts_voltagebin, MinHinBin_Table, doItParallel, CorrValsTab);
+
+
 
 % Then we can fit lines to the H2/H-ratio vs voltage curves to check if it is increasing or decreasing.
 % The results go into a tsne diagram that is re-drawn with the new markers.
-DrawTSNEDiagramWithHydrogen(TsneTab, HydrogenTab);
+% At this point, we might want to irnogre some voltage bins where the count
+% is very low. For my data, 500 minimum count sof H2 or H per bin works
+% well. Drop this value if you are getting excessive "insufficient data"
+% points.
+MinHinBin_Diagram = 500;
+DrawTSNEDiagramWithHydrogen(TsneTab, HydrogenTab, MinHinBin_Diagram);
 
 
 

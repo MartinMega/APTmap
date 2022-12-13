@@ -47,11 +47,11 @@ for k = 1:1:height(ElementsAmountsMarkers)
     legendline = ElementsAmountsMarkers.Highlight_Element(k) + " > " + ElementsAmountsMarkers.Highlight_MinAmount(k);
     legendentries(k+1) = legendline;
 end
-leg = legend(legendentries, 'Location', 'best');
+leg = legend(legendentries, 'Location', 'southeast');
 
 
 % some beautification
-grid on; grid minor;
+grid on; 
 xlabel('t-SNE Dimension 1')
 ylabel('t-SNE Dimension 2')
 ax = gca;

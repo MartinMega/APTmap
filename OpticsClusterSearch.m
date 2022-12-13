@@ -59,14 +59,16 @@ for k = 1:1:height(ElementsAmountsMarkers)
     legendline = ElementsAmountsMarkers.Highlight_Element(k) + " > " + ElementsAmountsMarkers.Highlight_MinAmount(k);
     legendentries(k+1) = legendline;
 end
-leg = legend(legendentries, 'Location', 'best');
+leg = legend(legendentries, 'Location', 'northwest');
 
 
 % make it look good
-grid on; grid minor;
+xlim([0, max(order)+1])
+grid on; 
 xlabel('Order')
 ylabel('Reachability Distance')
 ax = gca;
+ax.FontSize = 11;
 ax.YTickLabel = {};
 
 

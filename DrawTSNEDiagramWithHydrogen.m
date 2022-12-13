@@ -1,4 +1,10 @@
-function [] = DrawTSNEDiagramWithHydrogen(TsneTab, HydrogenTab)
+function [] = DrawTSNEDiagramWithHydrogen(TsneTab, HydrogenTab, MinHinBin)
+
+
+if nargin<3
+    MinHinBin = 0;
+end
+
 
 
 % Combine TsneTab and HydrogenTab. 
@@ -13,12 +19,23 @@ end
 
 %add column to table for the fit coefficients
 FullTab = addvars(FullTab, -1.*ones(height(FullTab),1), -1.*ones(height(FullTab),1), 'NewVariableNames', ["Hfit_m", "Hfit_t"]);
+FullTab = addvars(FullTab, -1.*ones(height(FullTab),1), -1.*ones(height(FullTab),1), 'NewVariableNames', ["totalH", "totalH2"]);
 
 
 
 for k = 1:height(FullTab)
-    hratio = cell2mat(FullTab.H2absolute(k)) ./ cell2mat(FullTab.Habsolute(k));
+    
+   
+    h2inbins = cell2mat(FullTab.H2absolute(k));
+    hinbins = cell2mat(FullTab.Habsolute(k));    
+    enoughH = h2inbins>MinHinBin & hinbins>MinHinBin; 
+    
+    h2inbins(~enoughH) = [];
+    hinbins(~enoughH) = [];    
+    hratio = h2inbins./hinbins;
+    
     voltages = mean(cell2mat(FullTab.voltagebins(k)),1); % we use the mean voltage for each voltage bin
+    voltages(~enoughH) = [];
    
     
     if length(hratio) > 1
@@ -31,6 +48,9 @@ for k = 1:height(FullTab)
         FullTab.Hfit_t(k) = NaN;
     end
     
+    FullTab.totalH(k) = sum(hinbins);
+    FullTab.totalH2(k) = sum(h2inbins);
+    
 end
     
 
@@ -40,10 +60,10 @@ end
 
 
 %prepare figure
-figure
+fig = figure;
+%fig.Position(3:4) = fig.Position(3:4) .* 1.5;
 hold on
 grid on
-grid minor
 
 
 % we want the size of the markers to be somewhat related to slope of the linear fit.
@@ -52,9 +72,10 @@ grid minor
 % largest marker, all other dots get linearly interpolated values in
 % between.
 dotsize = FullTab.Hfit_m;
+dotsize = FullTab.totalH2 ./ FullTab.totalH;
 dotsize = abs(dotsize);
-dotsize = interp1(prctile(dotsize,[10,90]), [10 100], abs(dotsize), 'linear', 'extrap');
-dotsize = min(max(dotsize,10),100);
+dotsize = interp1(prctile(dotsize,[25,75]), [3 40], abs(dotsize), 'linear', 'extrap');
+dotsize = min(max(dotsize,10),40);
 
 
 % draw all data with increasing H ratio
@@ -73,12 +94,15 @@ scatter(FullTab.tsne_x(unclear), FullTab.tsne_y(unclear), 'x', 'MarkerEdgeColor'
 
 
 %add legend, remove axis labels
-leg = legend({'H2/H ratio increases w Voltage', 'H2/H ratio decreases w Voltage'}, 'Location', 'best');
+leg = legend({sprintf('H2/H increases \nwith Voltage'), sprintf('H2/H decreases \nwith Voltage'), 'Insufficient Data'}, 'Location', 'southeast');
 ax = gca;
+ax.XTick = ax.XTick; % I believe this works around a matlab bug which causes axis ticks
+ax.YTick = ax.YTick; % to get messes up when saving a figure using print()
 ax.XTickLabel = {};
 ax.YTickLabel = {};
-xlabel('tsne dimension 1');
-ylabel('tsne dimension 2');
+%ax.FontSize = 14;
+xlabel('t-SNE Dimension 1')
+ylabel('t-SNE Dimension 2')
 
 
 

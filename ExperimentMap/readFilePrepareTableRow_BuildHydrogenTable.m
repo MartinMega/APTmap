@@ -1,13 +1,18 @@
-function newrow_cell = readFilePrepareTableRow_BulidHydrogenTable(FileTab_row, voltagebins, MinCounts_voltagebin, MinHinBin, Hrange, H2range, binw_noisecorr, conf_noisecorr)
+function newrow_cell = readFilePrepareTableRow_BuildHydrogenTable(FileTabANDCorrValsTab_row, voltagebins, MinCounts_voltagebin, MinHinBin, Hrange, H2range, binw_noisecorr, conf_noisecorr)
         
         % read epos file.
         % To save memory, keep m/n and voltage, immediately delete everything else
-        [epos] = qreadpos(FileTab_row.path);
+        [epos] = qreadpos(FileTabANDCorrValsTab_row.path);
         mnvalues = epos(:,4);
         voltages = epos(:,6);
         epos = -inf; % trick: matlab does not allow deleting this in a parfor loop,
                      % but if we just overwrite a big array with a scalar this is
                      % enough to save some memory.
+                     
+                     
+        %apply mass spec calibration
+        mnvalues = (mnvalues .* FileTabANDCorrValsTab_row.corr_fac) + FileTabANDCorrValsTab_row.corr_shift;
+                     
         
         
         Habs = [];
@@ -52,7 +57,7 @@ function newrow_cell = readFilePrepareTableRow_BulidHydrogenTable(FileTab_row, v
         
         % Now we've collected all the Hydrogen information we can make a new row
         % for the hyrogen table an
-        newrow_cell = {FileTab_row.Experiment, Habs, H2abs, noise_a, totalInBin,vbins};
+        newrow_cell = {FileTabANDCorrValsTab_row.Experiment, Habs, H2abs, noise_a, totalInBin,vbins};
         
         
     end

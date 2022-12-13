@@ -9,7 +9,11 @@ end
 
 
 %Find the histogram bins in which it is guaranteed that ions are contained
-ionfreeareas = [0 0.94; 1.05 1.45; 1.56 1.93; 2.02 2.27; 2.73 2.93]; %From Dan's paper
+ionfreeareas = [0.9, 0.92; 1.1 1.45; 1.56 1.93; 2.1 2.27; 2.73 2.93]; % These are the areas in an APT spectrum which have no ions
+                                                                      % as described in https://doi.org/10.1017/S1431927620024290, however they
+                                                                      % are a bit adapted (more narrow, especially the first range). This is so
+                                                                      % we don't run into troubles with the veto signal.
+
 isguaranteedionfree = zeros([1,length(bincenters)]);
 for k = 1:size(ionfreeareas,1)
     isguaranteedionfree((bincenters>ionfreeareas(k,1)) & (bincenters<ionfreeareas(k,2))) = 1;
@@ -36,7 +40,9 @@ relevantspec = spectrum(:) - confipkminline(:);
 relevantspec(relevantspec < 0) = 0;
 
 if any(isnan(relevantspec))
-    warning(' nan encountered when fitting noise bg. Replacing by 0 counts in bin');
+    warning([' nan encountered when fitting noise bg. Replacing by 0 counts in bin. ' ...
+            ' This could happen when, after noise correction, one or more bins should ' ...
+            ' contain less than 0 counts. We dont allow for less than 0 counts here so we just set it to 0.']);
     relevantspec(isnan(relevantspec)) = 0;
 end
 
