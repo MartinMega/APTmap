@@ -1,6 +1,5 @@
 # APTmap
 
-<br/><br/>
 ## What is this?
 
 This is a collection of matlab files that can be used for automated analyses of many APT experiments. Specifically, it can
@@ -12,7 +11,7 @@ This is a collection of matlab files that can be used for automated analyses of 
  - Extract the evolution of H2+/H+ ion concentrations as function of the voltage
  - Visualise the H2+/H+ behaviour on the tsne diagram. 
 
-<br/><br/>
+
 
 ## Requirements
 
@@ -27,7 +26,6 @@ In order to use these sripts, you need
  - A copy of https://github.com/MartinMega/GIXSGUI onyour computer. This is a fork of https://github.com/ennogra/GIXSGUI with a small patch.
  - A script for optics cluster search by M. Daszykowsky, available from doi.org/10.13140/RG.2.1.3998.3843 ,with some modifications. Have a look at the Get Started section for how to set this up. 
 
-<br/><br/>
 
 ## Get started
 
@@ -39,11 +37,12 @@ In order to use these sripts, you need
 Runnig the entire StepbyStep script on a large collection of files (more than 100, dpeending on computer speed) could take a long time, possibly several hours. I'd therefore recommend to start with a low number of files (maybe 20) to check if everything is working, and then repeat with the full number of datasets.
 
 <br/><br/>
+<br/><br/>
 
 
 ## Licenses etc.
 
-<b> The files in this repository are licensed under a GPLv3 license. See license.lic for more Information. </b>
+<b> The files in this repository are licensed under a GPLv3 license. See license.md for more Information. </b>
 
 <br/><br/>
 
