@@ -28,8 +28,7 @@ fid = fopen(temp_filename,'w');
 fwrite(fid, downloaded); %write the just downloaded data into the temp file
 fclose(fid);
 
-mkdir("GIXSGUI") % make a directory on current matlab path
-unzip(temp_filename,"GIXSGUI") % unzip
+unzip(temp_filename,"Jcurvefit") % unzip into Jcurvefit folder
 
 
 
