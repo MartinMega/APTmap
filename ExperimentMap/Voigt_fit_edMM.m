@@ -1,6 +1,15 @@
 function [start_da, final_da, FWHM] = Voigt_fit_edMM(spec,histcenters,peak,percent)
 %% Pseudo Voigt Fitting
 
+% This function has initially been written by Jaspreet Singh, subsequently edited by Martin.
+% Have a look at:
+% Singh, J. (2021). Atom probe tomography characterization of engineering ceramics [PhD thesis]
+% University of Oxford. https://ora.ox.ac.uk/objects/uuid:60ef298f-bd52-47d4-984d-23982f2a6963
+
+
+
+
+
 %Modifications by MM: input data was "read_in_g" matrix, is now spectrum vector "spec"
 %Todo MM: swap from fixed bin size to variable size maybe by adding histbins as input param
 

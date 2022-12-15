@@ -12,7 +12,8 @@ end
 
 
 %get figure ready
-figure;
+figureposition = get(0, 'defaultFigurePosition');
+fig = figure('Name', "tsne Diagram", 'Position', figureposition);
 hold on
 
 

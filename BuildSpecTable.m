@@ -35,25 +35,29 @@ SpecTab = addvars(SpecTab, -1.*ones(height(FileTab),length(spec_binedges)-1), 'N
 
 % Matlab cannot really do a conditional parfor, so we stash everything into
 % a sepeatare function and use a  if-clause to check if we want to run parallel or serial
+numIterations = height(FileTab);
 if (doItParallel)
-    parfor k =1:height(FileTab)       
+    progBar = ProgressBar(numIterations); %draw a progress bar
+    parfor k = 1:numIterations  
         %Read epos and get line for file
         newrow = readFilePrepareTableRow_BuildSpecTable(FullTab(k,:), spec_binedges);
         SpecTab(k,:) = newrow;        
-        fprintf('Processed: %d out of %d (may be out of order when working parallel) \n', k, height(FileTab));
+        %fprintf('Processed: %d out of %d (may be out of order when working parallel) \n', k, height(FileTab));
+        updateParallel([], pwd); %increment progress bar
     end
 else
-    for k =1:height(FileTab)        
+    progBar = ProgressBar(numIterations);
+    for k = 1:numIterations 
         %Read epos and get line for file
         newrow = readFilePrepareTableRow_BuildSpecTable(FullTab(k,:), spec_binedges);
         SpecTab(k,:) = newrow;
-        fprintf('Processed: %d out of %d \n', k, height(FileTab));
+        %fprintf('Processed: %d out of %d \n', k, height(FileTab));
+        progBar([], [], []); %increment progress bar
     end
 
 end
      
-    
-    
+fprintf("\n done. \n");
     
     
 end

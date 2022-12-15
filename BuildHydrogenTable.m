@@ -38,19 +38,24 @@ ti = tic;
 
 
 %loop through FullTab
+numIterations = height(FullTab);
 if doItParallel
+    progBar = ProgressBar(numIterations); %draw a progress bar
     parfor k = 1:height(FullTab)
-        newrow_cell = readFilePrepareTableRow_BulidHydrogenTable(FullTab(k,:), voltagebins, MinCounts_voltagebin, MinHinBin, Hrange, H2range, binw_noisecorr, conf_noisecorr);
+        newrow_cell = readFilePrepareTableRow_BuildHydrogenTable(FullTab(k,:), voltagebins, MinCounts_voltagebin, MinHinBin, Hrange, H2range, binw_noisecorr, conf_noisecorr);
         results(k,:) = newrow_cell;
         elapsed = toc(ti);
-        fprintf("Processed: %u | Remaining: %u | Elapsed: %.1f s  (may be out of order when working parallel) \n", k, height(FullTab)-k, elapsed);
+        %fprintf("Processed: %u | Remaining: %u | Elapsed: %.1f s  (may be out of order when working parallel) \n", k, height(FullTab)-k, elapsed);
+        updateParallel([], pwd); %increment progress bar
     end
-else
-    for k = 1:height(FullTab)
-        newrow_cell = readFilePrepareTableRow_BulidHydrogenTable(FullTab(k,:), voltagebins, MinCounts_voltagebin, MinHinBin, Hrange, H2range, binw_noisecorr, conf_noisecorr);
+else    
+    progBar = ProgressBar(numIterations);
+    for k = 1:numIterations
+        newrow_cell = readFilePrepareTableRow_BuildHydrogenTable(FullTab(k,:), voltagebins, MinCounts_voltagebin, MinHinBin, Hrange, H2range, binw_noisecorr, conf_noisecorr);
         results(k,:) = newrow_cell;
         elapsed = toc(ti);
-        fprintf("Processed: %u | Remaining: %u | Elapsed: %.1f s \n", k, height(FullTab)-k, elapsed);
+        %fprintf("Processed: %u | Remaining: %u | Elapsed: %.1f s \n", k, height(FullTab)-k, elapsed);
+        progBar([], [], []); %increment progress bar
     end
 end
 
@@ -58,7 +63,7 @@ end
 
 HydrogenTab = cell2table(results, 'VariableNames', tab_Varnames);
 
-
+fprintf("\n done. \n");
 
 
 

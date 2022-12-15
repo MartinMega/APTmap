@@ -50,9 +50,27 @@ binedges = (0:0.01:180);
 % Do use parallel on a SSD to achieve a speedup.
 doItParallel = false;
 
-%SpecTab = BuildSpecTable(FileTab, binedges, doItParallel);
-%Alternatively, apply calibration of you have a table with correction factors
-SpecTab = BuildSpecTable(FileTab, binedges, doItParallel, CorrValsTab);
+SpecTab = BuildSpecTable(FileTab, binedges, doItParallel);
+
+% One problem with the spectra in the paper !!! ref goes here !!! is that the
+% spectra have been exported automatically and therefore are not calibrated.
+% It therefore possible to call BuildSpecTable with a table of correction
+% values as additional parameter. The Script "StepByStep_Spectracorrection"
+% shows how these values have been obtained for the spectra in above paper.
+% To load a table of correction values,  use the following:
+%
+% ld = load('CorrValsTab.mat', 'CorrValsTab');
+% CorrValsTab= ld.CorrValsTab;
+% clear ld;
+% SpecTab = BuildSpecTable(FileTab, binedges, doItParallel, CorrValsTab);
+
+% Depending on the speed of your computer and the number of experiments you have,
+% reading all of these files could take a while. It therefore makes sense to store
+% the SpecTab, so you can just load them again at a later point. We also want to add
+% the binedges to this file so it is clear what the binning in these spectra is.
+% save("Spectab.mat", "SpecTab", "binedges"  "-v7.3)
+% load("Spectab.mat")
+
 
 %% Search for Spectra
 % Now that we have spectra of all our datasets,  we can use
