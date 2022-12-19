@@ -29,12 +29,13 @@
 % integer multiple of the bin size that was used for creating SpecTab.
 
 
+%{
 % Ti-Cr fingerprint in Inc718
 % SHA-256 value of corresponding raw Experiment file is 5BC338DA8E0958A846227F4ABCF9B1AD4F3C6182342FE0147F650E9B18C96F77
 % This pos file has been archived to ORA (not publicly available): !!! Link here !!!
 pos = qreadpos("data/R56_00545-v01_inc718_by_MM.pos");
 search_binedges = 22.7:0.01:25.3; % this is the location fo the Ti-Cr fingerprint in the spectrum
-%
+%}
 
 %{
 % SiO2+, Na4P++, PO2+, Po2H+ overlap in Bioglass.
@@ -48,13 +49,12 @@ search_binedges = 59.5:0.01:65.5;
 %}
 
 
-%{
 % Plain W, liftout
 % SHA-256 value of experiment is 87364561c49ef57c9759296eb904593ea32f09006b9b78eb7a8f4b8acbbec929, listed in https://raw.githubusercontent.com/oxfordAPT/hashlist/master/cameca_5000XR.txt
 % This pos file is available in !!! ORA link here !!! 
  pos = qreadpos("data/R5083_12410_LiftoutW_by_MM.pos");
  search_binedges = 89.5:0.01:93.5;
-%}
+
      
  
 %{
@@ -76,6 +76,8 @@ numNeighbours = 4;
 
 
 %% Now actually search for the spectrum and plot results
+% just run this part of the script to search neighbours and plot the results
+
 
 % Create search spectrum, normalise to sum up to 1
 search_spec = histcounts(pos(:,4), search_binedges);
