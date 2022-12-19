@@ -14,7 +14,7 @@ addpath(genpath('utilities'))
 %% Load files
 % This is the same process as in the beginning of the StepbyStep script: Locate the epos files, 
 % load them and generate spectra.
-eposfiles_dirstruct = dir('E:\Martin\APTdb_copy_loadbalancing\**\*.epos');
+eposfiles_dirstruct = dir('path_to_manyeposfiles\**\*.epos');
 FileTab = BuildFileTable(eposfiles_dirstruct);
 binedges = (0:0.001:180);
 doItParallel = false;
