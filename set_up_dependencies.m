@@ -1,6 +1,6 @@
 
-%%
-% This script will welp you to obtain GIXSGUI and a matlab script for optics cluster search,
+%% Set up Dependencies
+% This script will help you to obtain GIXSGUI and a matlab script for optics cluster search,
 % which are needed for APTmap.
 
 
@@ -18,7 +18,8 @@
 %       https://doi.org/10.1107/S1600576715004434
 
 % You can either manually navigate to https://github.com/MartinMega/GIXSGUI
-% and download files into a folder on your matlab root folder,  or run the
+% and download files into the Jcurvefit folder (a sub-folder of the folder 
+% where this det_up_dependencies.m script was found in, or run the
 % matlab code below which will do all of this for you.
 
 downloaded = webread("https://github.com/MartinMega/GIXSGUI/archive/refs/heads/master.zip"); %download the zip compressed files
@@ -43,7 +44,7 @@ unzip(temp_filename,"Jcurvefit") % unzip into Jcurvefit folder
 % downloading of the file, but I do have a matlab script that modifies the
 % file for you once downloaded,  which is get_optics.
 
-% So, first you need to go to 10.13140/RG.2.1.3998.3843,  and download the
+% So, first you need to go to doi.org/10.13140/RG.2.1.3998.3843,  and download the
 % file optics.m. You will get text file called Matlab_code_for_OPTICS.txt.
 % Enter a path to this file below,  and run get_optics. This will save a
 % modified version of this code into a new file optics_modified.m onto your 
