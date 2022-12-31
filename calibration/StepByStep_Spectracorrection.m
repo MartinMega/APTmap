@@ -20,11 +20,11 @@ FileTab = BuildFileTable(eposfiles_dirstruct);
 binedges = (0:0.001:180);
 doItParallel = false;
 
-% The function BuildSpecTable would allow us to provide a list of correction factors so the
+% The function BuildSpecTable would allow us to provide a list of calibration factors so the
 % spectra can be corrected, by providing an additional parameter when calling the function (ie
 % BuildSpecTable(FileTab, binedges, doItParallel) ). However, we don't have this list of factors yet 
 % beause this is just what we want to produce here. Therefore, we call the BuildSpecTab without this
-% additional parameter in order to load the spcetra without correction.
+% additional parameter in order to load the spectra without calibration.
 SpecTab = BuildSpecTable(FileTab, binedges, doItParallel);
 
 
@@ -78,7 +78,7 @@ knownShiftsTab = knownElements2knownShifts(SpecTab, KnownElementsTab);
 % Now that we know for all known fingerprints by how much they are shifted relative to their
 % expected position,  we can calulate the calibration factors that will calibrate the spectra
 % such the fingerprints in these spectra will end up at their expected positions.
-% We use two correction factors here: one for shifting the spectrum, and one for scaling. This
+% We use two calibration factors here: one for shifting the spectrum, and one for scaling. This
 % means, in order to calculate both of these,  we need at leat two data points, ie we need to
 % know by how much the spectrum is off at least two fingerprints. For those spectra where we know
 % the shift of at least two fingerprints, we can do this.
