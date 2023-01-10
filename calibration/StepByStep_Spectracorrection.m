@@ -8,6 +8,7 @@ checkIfMatlabReady();
 addpath(genpath('ExperimentMap'))
 addpath(genpath('SearchingAndClustering'))
 addpath(genpath('utilities'))
+addpath(genpath('calibration'))
 
 
 
@@ -19,11 +20,11 @@ FileTab = BuildFileTable(eposfiles_dirstruct);
 binedges = (0:0.001:180);
 doItParallel = false;
 
-% Thus function BuildSpecTable would allow us to provide a list of correction factors so the
+% The function BuildSpecTable would allow us to provide a list of calibration factors so the
 % spectra can be corrected, by providing an additional parameter when calling the function (ie
-% BuildSpecTable(FileTab, binedges, doItParallel) ).However,  we don't have this list of factors yet 
+% BuildSpecTable(FileTab, binedges, doItParallel) ). However, we don't have this list of factors yet 
 % beause this is just what we want to produce here. Therefore, we call the BuildSpecTab without this
-% additional parameter in order to load the spctra without correction.
+% additional parameter in order to load the spectra without calibration.
 SpecTab = BuildSpecTable(FileTab, binedges, doItParallel);
 
 
@@ -38,7 +39,7 @@ clear ld;
 % For more info about this file,  see the footnote [A] at the bottom of this document.
 
 
-% For each of these fingerprints, we have a Reference datasets that is well-calibrated and that
+% For each of these fingerprints, we have a reference dataset that is well-calibrated and that
 % contains the corresponding fingerprint (see footnote [B]).
 % We can then go though all the experiments in our collection where a fingerprint is known, and
 % check how well the fingerprint in the uncalibrated experiment overlaps with the fingerprint
@@ -46,15 +47,15 @@ clear ld;
 % left or right by one or more bins, and see if this improves the overlap. The overlap between 
 % the two spectra is expected to be best when we have shifted the uncalibrated fingerprint such
 % that is is just at the position where it should be,  which is the position this fingerprint
-% is at in the calibratedf spectrum.
+% is at in the calibrated spectrum.
 % From this number of bins that we need to shift the uncalibrated spectrum in order to maximise
 % the overlap, we know by how much (in Da) the fingerprint in the uncalibrated spectrum is off
 % from its expected position.
-% This information of by hoch much a fingerprint is away from its expected position is what we
+% This information about how far a fingerprint is away from its expected position is what we
 % need to calibrate the spectrum, therefore we store this information in a table.
 
 % For the "goodness of overlap", we use the dot product of both spectra. 
-% This means that seaching for shift by which a fingerprint in an uncalibrated spectrum is off
+% This means that seaching for a shift by which a fingerprint in an uncalibrated spectrum is off
 % from its expected position corresponds to searching for a maximum in the cross-correlation 
 % between fingerprint from reference spectrum and uncalibrated spectrum.
 
@@ -64,7 +65,7 @@ clear ld;
 % from its expected position.
 
 % The function knownElements2knownShifts does all of this: It iterates through all know 
-% Fingerprints in the Experiments and calulates the shift which maximises overlap between 
+% fingerprints in the experiments and calulates the shift which maximises overlap between 
 % uncalibrated experiment and reference spectrum.
 % Currently, this function is hardcoded for a bin size of 1e-3 for the spectra in SpecTab, and
 % specifically works with the fingerprints H+, Ti++, Mo++, Cr++, Zr++, U+++, Ga+.
@@ -77,20 +78,20 @@ knownShiftsTab = knownElements2knownShifts(SpecTab, KnownElementsTab);
 % Now that we know for all known fingerprints by how much they are shifted relative to their
 % expected position,  we can calulate the calibration factors that will calibrate the spectra
 % such the fingerprints in these spectra will end up at their expected positions.
-% We use two correction factors here: one for shifting the spectrum, and one for scaling. This
+% We use two calibration factors here: one for shifting the spectrum, and one for scaling. This
 % means, in order to calculate both of these,  we need at leat two data points, ie we need to
 % know by how much the spectrum is off at least two fingerprints. For those spectra where we know
 % the shift of at least two fingerprints, we can do this.
 % In cases where we know by how much the spectrum is off at only one position (This is usually 
 % the H+ peak, because a H signal is in almost every APT dataset),  we cannot calulate both values,
 % so we only the calibration factor for shifting the spectrum.
-% We can't to anything with the datasets where we have no known fingerprint and not even know
+% We can't do anything with the datasets where we have no known fingerprint and not even know
 % where the H+ peak is, so we set the correction factor for scaling to 1 and for shift to 0. 
 
 % This is what the function knownShift2correctionfactors does. It once more is hardcoded to
-% assume we are workign with the elements H+, Ti++, Mo++, Cr++, Zr++, U+++, Ga+. For all
-% spectra with no known fingerpeints, this outputs scale factors of 1 (which coorresponds to no
-% scaling at all),  webaucse we don't know how (or if) these spectra need to be calibrated.
+% assume we are working with the elements H+, Ti++, Mo++, Cr++, Zr++, U+++, Ga+. For all
+% spectra with no known fingerprints, this outputs scale factors of 1 (which coorresponds to no
+% scaling at all),  because we don't know how (or if) these spectra need to be calibrated.
 [CorrValsTab_FingerprintKnown] = knownShift2correctionfactors(knownShiftsTab);
 
 
@@ -119,7 +120,7 @@ CorrValsTab = [CorrValsTab; CorrValsTab_newFactors];
 
 
 %% Save the result
-% so you dont need to compute it again when you need it
+% so we dont need to compute it again when we need it
 save("CorrValsTab.mat", "CorrValsTab")
 
 
