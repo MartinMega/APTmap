@@ -130,13 +130,12 @@ save("CorrValsTab.mat", "CorrValsTab")
 
 %% Footnotes
 % [A] The list of known Elements that is used in the paper !!! Ref goes here !!! has been archived
-% to Oxford ORA as item no !!!.
+% to Oxford ORA as item https://ora.ox.ac.uk/objects/uuid:9eecec05-8004-4348-85bf-c7d913158f7e
 % Unfortunately, this list cannot be published as the APT data in this paper contains confidential
-% information. However, an example file has been included in this gihub repository: !!!
-% Filename here !!!
+% information.
 % [B] The reference datasets are simply .epos files of experiments which have well calibrated
 % spectra (by a human operator), ie the fingerprints are precisely where we expect them to be.
-% The reference files are archived to the Oxford Research archive !!! link !!! and are not publicly
+% The reference files are archived to the Oxford Research archive https://ora.ox.ac.uk/objects/uuid:9eecec05-8004-4348-85bf-c7d913158f7e and are not publicly
 % available. However, it should be relatively easy to replace them by re-using publicly
 % available APT datasets which contain these signatures.
 % [C] in the Oxford APT database it turns out that the scaling factor for those spectra where

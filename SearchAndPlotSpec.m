@@ -32,7 +32,7 @@
 %{
 % Ti-Cr fingerprint in Inc718
 % SHA-256 value of corresponding raw Experiment file is 5BC338DA8E0958A846227F4ABCF9B1AD4F3C6182342FE0147F650E9B18C96F77
-% This pos file has been archived to ORA (not publicly available): !!! Link here !!!
+% This pos file has been archived to ORA (not publicly available): https://ora.ox.ac.uk/objects/uuid:9eecec05-8004-4348-85bf-c7d913158f7e
 pos = qreadpos("data/R56_00545-v01_inc718_by_MM.pos");
 search_binedges = 22.7:0.01:25.3; % this is the location fo the Ti-Cr fingerprint in the spectrum
 %}
@@ -42,7 +42,7 @@ search_binedges = 22.7:0.01:25.3; % this is the location fo the Ti-Cr fingerprin
 % Dataset by Yanru Ren et al,
 % Published in Microscopy & Microanalysis: https://doi.org/10.1017/S1431927621012976
 % SHA-256 value of experiment is c5a44a2e8c65c8d7241b6b63be340ec35b11979789fbcd5c292970db9c50529e, listed in https://raw.githubusercontent.com/oxfordAPT/hashlist/master/cameca_5000XR.txt
-% This pos file has been archived to ORA (not publicly available): !!! Link here !!!
+% This pos file has been archived to ORA (not publicly available): https://ora.ox.ac.uk/objects/uuid:9eecec05-8004-4348-85bf-c7d913158f7e
 
 pos = qreadpos("data/R5083_10591-v01_BioGlass_by_Yanru.pos");
 search_binedges = 59.5:0.01:65.5;
@@ -51,7 +51,7 @@ search_binedges = 59.5:0.01:65.5;
 
 % Plain W, liftout
 % SHA-256 value of experiment is 87364561c49ef57c9759296eb904593ea32f09006b9b78eb7a8f4b8acbbec929, listed in https://raw.githubusercontent.com/oxfordAPT/hashlist/master/cameca_5000XR.txt
-% This pos file is available in !!! ORA link here !!! 
+% This pos file is available in https://ora.ox.ac.uk/objects/uuid:ed413cc3-1520-42a1-8936-eed47ef3ad5f 
  pos = qreadpos("data/R5083_12410_LiftoutW_by_MM.pos");
  search_binedges = 89.5:0.01:93.5;
 
@@ -61,7 +61,7 @@ search_binedges = 59.5:0.01:65.5;
 % W Wire, but a fingerprint with few counts an a spec that does not have
 % Well shaped peaks and that is poorly calibrated (and XS instead of XR)
 % SHA-256 value of experiment is 9a14401b87374a3ac47621eedd46a7da239dc158f51d76e3780e5aa2a4bffc60, listed in https://github.com/oxfordAPT/hashlist/blob/master/cameca_5000XS.txt
-% This pos file is available in !!! ORA link here !!! 
+% This pos file is available in https://ora.ox.ac.uk/objects/uuid:ed413cc3-1520-42a1-8936-eed47ef3ad5f 
 pos = qreadpos("data/R5111_10114_WWire_by_MM.pos");
 search_binedges = 89.5:0.01:94;
 %}
