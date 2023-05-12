@@ -225,7 +225,8 @@ end
 
 % [A] These reference datasets are simply .epos files of experiments which have well calibrated
 % spectra (by a human operator), ie the fingerprints are precisely where we expect them to be.
-% The reference files are archived to the Oxford Research archive !!! link !!! and are not publicly
+% The reference files are archived to the Oxford Research archive 
+% https://ora.ox.ac.uk/objects/uuid:9eecec05-8004-4348-85bf-c7d913158f7e and are not publicly
 % available. However, it should be relatively easy to replace them by re-using publicly
 % available APT datasets which contain the corresponding ionic fingerprints.
 

@@ -11,7 +11,7 @@ This is a collection of matlab files that can be used for automated analyses of 
  - Extract the evolution of H2+/H+ ion concentrations as function of the voltage
  - Visualise the H2+/H+ behaviour on the tsne diagram. 
 
-
+Please have a look at the paper https://doi.org/10.1093/micmic/ozad027 for more information
 
 ## Requirements
 
@@ -38,6 +38,10 @@ Runnig the entire StepbyStep script on a large collection of files (more than 10
 
 <br/><br/>
 <br/><br/>
+
+
+
+
 
 
 ## Licenses etc.

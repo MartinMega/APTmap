@@ -129,7 +129,7 @@ save("CorrValsTab.mat", "CorrValsTab")
 
 
 %% Footnotes
-% [A] The list of known Elements that is used in the paper !!! Ref goes here !!! has been archived
+% [A] The list of known Elements that is used in the paper https://doi.org/10.1093/micmic/ozad027 has been archived
 % to Oxford ORA as item https://ora.ox.ac.uk/objects/uuid:9eecec05-8004-4348-85bf-c7d913158f7e
 % Unfortunately, this list cannot be published as the APT data in this paper contains confidential
 % information.

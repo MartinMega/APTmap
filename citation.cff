@@ -1,0 +1,31 @@
+# This CITATION.cff file was generated with cffinit.
+# Visit https://bit.ly/cffinit to generate yours today!
+
+cff-version: 1.2.0
+title: APTmap
+message: >-
+  Please cite this software using the metadata from
+  "preferred-citation"
+type: software
+authors:
+  - given-names: Martin S.
+    family-names: Meier
+    orcid: 'https://orcid.org/0000-0002-8896-2129'
+repository-code: 'https://github.com/MartinMega/APTmap'
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Meier"
+    given-names: "Martin S."
+    orcid: "https://orcid.org/0000-0002-8896-2129"
+  - family-names: "Bagot"
+    given-names: "Paul A. J."
+  - family-names: "Moody"
+    given-names: "Michael P."
+  - family-names: "Haley"
+    given-names: "Daniel"
+  doi: "10.1093/micmic/ozad027"
+  journal: "Journal Title"
+  month: 3
+  title: "Large-Scale Atom Probe Tomography Data Mining: Methods and Application to Inform Hydrogen Behavior"
+  year: 2023
